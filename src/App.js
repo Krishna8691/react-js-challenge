@@ -2,9 +2,10 @@ import "./styles.css";
 import PieChart from "./components/PieChart";
 import StyledTable from "./components/Table";
 import Buttons from "./components/Buttons";
-import React, { useEffect, useMemo } from "react";
+import React, { useContext, useEffect, useMemo } from "react";
 import axios from "axios";
 import produce from "immer";
+import { AppContextProvider, Context } from "./Context";
 
 const initialState = {
   currentDate: "",
@@ -85,10 +86,12 @@ export default function App() {
       }
       const { personsVaccinated, personInfo } = state;
       return (
-        <PieChart
-          vaccinated={personsVaccinated}
-          notVaccinated={personInfo.length - personsVaccinated}
-        />
+        <AppContextProvider>
+          <PieChart
+            vaccinated={personsVaccinated}
+            notVaccinated={personInfo.length - personsVaccinated}
+          />
+        </AppContextProvider>
       );
     }, [state.personsVaccinated]);
   };

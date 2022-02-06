@@ -1,17 +1,16 @@
+import { useContext } from "react";
 import { Pie } from "react-chartjs-2";
+import { AppContextProvider, Context } from "../Context";
 
 const PieChart = ({ vaccinated, notVaccinated }) => {
-  /* 
-    data: An Array of two numbers 
-    [no. of people vaccinated, no. of people not vaccinated]
-  */
+  const colors = useContext(Context);
   const options = {
     labels: ["Vaccinated", "Not Vaccinated"],
     datasets: [
       {
         label: "My First Dataset",
         data: [vaccinated, notVaccinated],
-        backgroundColor: ["rgb(255, 99, 132)", "rgb(54, 162, 235)"],
+        backgroundColor: colors,
         hoverOffset: 4,
       },
     ],
