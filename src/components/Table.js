@@ -1,4 +1,40 @@
-export default function StyledTable() {
+import { useEffect } from "react";
+
+const TableRow = ({ classname, date, name, status }) => {
+  return (
+    <tr className={classname}>
+      <td>{name}</td>
+      <td>{date}</td>
+      <td>{status}</td>
+    </tr>
+  );
+};
+
+export default function StyledTable({ data, currentDate, dispatch }) {
+  useEffect(() => {
+    dispatch({ type: "UPDATE_VACCINATED_COUNT" });
+  }, [currentDate]);
+
+  const renderTableRows = () => {
+    return data.map((person, index) => {
+      const { person_name, vaccination_date, person_id } = person;
+      const classname =
+        new Date(vaccination_date) > new Date(currentDate)
+          ? "pending"
+          : "vaccinated";
+      const vaccinationStatus =
+        classname === "pending" ? "Vaccine Pending" : "Vaccine Done";
+      return (
+        <TableRow
+          key={person_id}
+          classname={classname}
+          date={vaccination_date}
+          name={person_name}
+          status={vaccinationStatus}
+        />
+      );
+    });
+  };
   return (
     <table>
       <thead>
@@ -8,18 +44,7 @@ export default function StyledTable() {
           <th>Vaccination Status</th>
         </tr>
       </thead>
-      <tbody>
-        <tr className="vaccinated">
-          <td>John Doe</td>
-          <td>2021-05-03</td>
-          <td>Vaccine Done</td>
-        </tr>
-        <tr className="pending">
-          <td>Jane Doe</td>
-          <td>2021-05-23</td>
-          <td>Vaccine Pending</td>
-        </tr>
-      </tbody>
+      <tbody className="person-info">{renderTableRows()}</tbody>
     </table>
   );
 }

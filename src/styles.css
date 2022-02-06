@@ -35,6 +35,7 @@ button {
   width: 50px;
   border-radius: 10%;
   height: 30px;
+  font-size: 22px;
 }
 
 .vaccinated {
@@ -42,4 +43,13 @@ button {
 }
 .pending {
   color: #ff6666;
+}
+
+.pie-chart-container {
+  height: 400px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
